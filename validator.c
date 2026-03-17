@@ -18,7 +18,7 @@ int validator(char *str)
         sum += digits;
     }
     if (sum % 10 == 0)
-        printf("Valid\n");
+        printf("valid\n");
     else
         printf("invalid\n");
     return 0;
