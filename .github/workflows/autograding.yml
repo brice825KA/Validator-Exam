@@ -1,0 +1,67 @@
+name: validator tests
+
+on: [push]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Compile
+        run: clang -Wall -Wextra -Werror -o validator *.c
+
+      - name: Test 1 - valid number
+        run: |
+          output=$(./validator 79927398713)
+          if [ "$output" = "valid" ]; then
+            exit 0
+          else
+            exit 1
+          fi
+
+      - name: Test 2 - valid number
+        run: |
+          output=$(./validator 4003600000000014)
+          if [ "$output" = "valid" ]; then
+            exit 0
+          else
+            exit 1
+          fi
+
+      - name: Test 3 - invalid number
+        run: |
+          output=$(./validator 12345)
+          if [ "$output" = "invalid" ]; then
+            exit 0
+          else
+            exit 1
+          fi
+
+      - name: Test 4 - invalid number
+        run: |
+          output=$(./validator 987654321)
+          if [ "$output" = "invalid" ]; then
+            exit 0
+          else
+            exit 1
+          fi
+
+      - name: Test 5 - non numeric input
+        run: |
+          ./validator abc123
+          if [ $? -eq 84 ]; then
+            exit 0
+          else
+            exit 1
+          fi
+
+      - name: Test 6 - missing argument
+        run: |
+          ./validator
+          if [ $? -eq 84 ]; then
+            exit 0
+          else
+            exit 1
+          fi

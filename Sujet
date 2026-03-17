@@ -1,0 +1,56 @@
+Digit Check Algorithm
+
+The Digit Check algorithm is a simple formula used to validate a sequence of digits.
+For a number composed of n digits, the algorithm is as follows:
+consider each digit individually;
+starting from the leftmost digit, multiply the value of every digit in an even position by 2, and every digit in an odd position by 1;
+if a resulting value is greater than 9, subtract 9 from it;
+add all the resulting digits together;
+if the modulo by 10 of the sum is equal to 0, the sequence is then valid, otherwise it is invalid.
+
+Example given the number "12345":
+
+1 | 2 | 3 | 4 | 5
+1×1 | 2×2 | 3×1 | 4×2 | 5×1
+1 | 4 | 3 | 8 | 5
+1 + 4 + 3 + 8 + 5 = 21
+21 % 10 ≠ 0 → invalid
+Example given the number "79927398713":
+
+7 | 9 | 9 | 2 | 7 | 3 | 9 | 8 | 7 | 1 | 3
+7×1 | 9×2 | 9×1 | 2×2 | 7×1 | 3×2 | 9×1 | 8×2 | 7×1 | 1×2 | 3×1
+7 | 18 | 9 | 4 | 7 | 6 | 9 | 16 | 7 | 2 | 3
+7 + (18−9) + 9 + 4 + 7 + 6 + 9 + (16−9) + 7 + 2 + 3 = 70
+70 % 10 = 0 → valid
+
+Task
+Write a program that takes one parameter and checks if it is a valid number sequence according to the algorithm above.
+If the string is only made of digits and is valid, the program displays valid on the standard output, followed by a newline.
+If the string is only made of digits and is invalid, the program displays invalid on the standard output, followed by a newline.
+All other cases are considered errors.
+The program must return 84 in case of error.
+
+⚠️ Warning
+The number passed as parameter might be really big.
+However, the fourth step's sum will always fit in an int variable.
+
+Examples
+
+Terminal
+$ ./validator "79927398713"
+valid
+
+$ ./validator "12345"
+invalid
+
+$ ./validator ""
+$ echo $?
+84
+
+$ ./validator chocolate
+$ echo $?
+84
+
+$ ./validator "1234a5"
+$ echo $?
+84
